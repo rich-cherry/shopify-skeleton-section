@@ -1,0 +1,139 @@
+{{ 'CSS-FILENAME.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'JS-FILENAME.js' | asset_url }}"></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="SECTION-NAME section-{{ section.id }}-padding">
+  <div class="SECTION-NAME__image-content">
+    <div class="SECTION-NAME__image-1">
+      {% if section.settings.image_1 != blank %}
+        {% render 'IMAGE-SNIPPET-NAME', image: section.settings.image, alt: section.settings.image_alt %}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="SECTION-NAME__text-content">
+    <h3 class="SECTION-NAME__subheading">{{ section.settings.subheading }}</h3>
+    <h2 class="SECTION-NAME__heading">{{ section.settings.heading }}</h2>
+    <p class="SECTION-NAME__paragraph">{{ section.settings.paragraph }}</p>
+    <ul class="SECTION-NAME__tags">
+      {% assign tags = section.settings.tags | split: "|" %}
+      {% for tag in tags %}
+        <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+    <div class="SECTION-NAME__link-container">
+      <a href="{{ section.settings.link }}" class="SECTION-NAME__link">{{ section.settings.link_text }}</a>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "SECTION NAME",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#222222"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Primary image"
+      },
+      {
+        "type": "text",
+        "id": "image_alt",
+        "label": "Primary image alt text"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph",
+        "label": "Paragraph"
+      },
+      {
+        "type": "textarea",
+        "id": "tags",
+        "label": "Tags",
+        "info": "Separate tags with a pipe ('|')"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link text"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 0
+      }
+    ],
+    "blocks": [],
+    "presets": [{
+      "name": "SECTION NAME"
+    }]
+  }
+{% endschema %}

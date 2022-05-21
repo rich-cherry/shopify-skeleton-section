@@ -1,0 +1,25 @@
+.BLOCK-NAME {}
+
+.BLOCK-NAME__image-content {}
+
+.BLOCK-NAME__image-1 {}
+
+.BLOCK-NAME__image-2 {}
+
+.BLOCK-NAME__image-1 img,
+.BLOCK-NAME__image-2 img {}
+
+.BLOCK-NAME__text-content {}
+
+.BLOCK-NAME__subheading {}
+
+.BLOCK-NAME__heading {}
+
+.BLOCK-NAME__paragraph {}
+
+.BLOCK-NAME__tags {}
+
+.BLOCK-NAME__link-container {}
+
+.BLOCK-NAME__link {}
+
