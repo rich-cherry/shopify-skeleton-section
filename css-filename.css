@@ -2,12 +2,9 @@
 
 .BLOCK-NAME__image-content {}
 
-.BLOCK-NAME__image-1 {}
+.BLOCK-NAME__image {}
 
-.BLOCK-NAME__image-2 {}
-
-.BLOCK-NAME__image-1 img,
-.BLOCK-NAME__image-2 img {}
+.BLOCK-NAME__image img {}
 
 .BLOCK-NAME__text-content {}
 
@@ -22,4 +19,3 @@
 .BLOCK-NAME__link-container {}
 
 .BLOCK-NAME__link {}
-

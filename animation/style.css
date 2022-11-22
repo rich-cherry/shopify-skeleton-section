@@ -4,45 +4,40 @@ h3 {
   margin: .25rem;
 }
 
-[data-animate="true"] {
-  height: 75vh;
+/* animations */
+.animation-crop {
+  overflow: hidden;
 }
 
-[data-animation="fade-up"] {
+.js [data-animation] {
   opacity: 0;
 }
 
-[data-animate="true"] [data-animation="fade-up"][data-animation-order="1"][data-in-view="true"] {
+.js [data-animate="true"] [data-animation="fade-up"][data-in-view="true"] {
   opacity: 0;
-  animation: rise-up 1s .25s cubic-bezier(.165, .84, .44, 1) forwards;
-}
-
-[data-animate="true"] [data-animation="fade-up"][data-animation-order="2"][data-in-view="true"] {
-  opacity: 0;
-  animation: rise-up 1s 0.5s cubic-bezier(.165, .84, .44, 1) forwards;
-}
-
-[data-animate="true"] [data-animation="fade-up"][data-animation-order="3"][data-in-view="true"] {
-  opacity: 0;
-  animation: rise-up 1s 0.75s cubic-bezier(.165, .84, .44, 1) forwards;
+  animation: fadeUp 1s cubic-bezier(.165, .84, .44, 1) forwards;
 }
 
 @keyframes fadeUp {
   from {
-    transform: translateY(20px);
+    transform: translateY(20px) scale(0.9);
     opacity: 0;
   }
 
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
 
+.js [data-animate="true"] [data-animation="rise-up"][data-in-view="true"] {
+  opacity: 0;
+  animation: rise-up 1s cubic-bezier(.165, .84, .44, 1) forwards;
+}
 
 @keyframes rise-up {
   0% {
-    opacity: 1;
+    opacity: 0;
     transform: translateY(120%);
   }
 
@@ -52,8 +47,12 @@ h3 {
   }
 }
 
+.js [data-animate="true"] [data-animation="fade-in"][data-in-view="true"] {
+  opacity: 0;
+  animation: fade-in 1.5s cubic-bezier(.165, .84, .44, 1) forwards;
+}
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
   }
@@ -61,8 +60,4 @@ h3 {
   to {
     opacity: 1;
   }
-}
-
-.animation-crop {
-  overflow: hidden;
 }
