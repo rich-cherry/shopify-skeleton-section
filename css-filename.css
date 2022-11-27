@@ -1,21 +1,19 @@
-.BLOCK-NAME {}
+.SECTION-NAME {}
 
-.BLOCK-NAME__image-content {}
+.SECTION-NAME__image-content {}
 
-.BLOCK-NAME__image {}
+.SECTION-NAME__image {}
 
-.BLOCK-NAME__image img {}
+.SECTION-NAME__image img {}
 
-.BLOCK-NAME__text-content {}
+.SECTION-NAME__text-content {}
 
-.BLOCK-NAME__subheading {}
+.SECTION-NAME__subheading {}
 
-.BLOCK-NAME__heading {}
+.SECTION-NAME__heading {}
 
-.BLOCK-NAME__paragraph {}
+.SECTION-NAME__paragraph {}
 
-.BLOCK-NAME__tags {}
+.SECTION-NAME__link-container {}
 
-.BLOCK-NAME__link-container {}
-
-.BLOCK-NAME__link {}
+.SECTION-NAME__link {}

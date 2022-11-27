@@ -1,6 +1,6 @@
 {%- comment -%}consider using <figure>/<figcaption> for images with associated text{%- endcomment -%}
-{{ 'CSS-FILENAME.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'JS-FILENAME.js' | asset_url }}" defer="defer"></script>
+{{ 'SECTION-FILENAME.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'SECTION-FILENAME.js' | asset_url }}" defer="defer"></script>
 
 {% style %}
   #shopify-section-{{ section.id }} {
@@ -63,27 +63,25 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Primary image"
-    },
-    {
-      "type": "text",
-      "id": "image_alt",
-      "label": "Primary image alt text"
+      "label": "Image"
     },
     {
       "type": "text",
       "id": "subheading",
-      "label": "Subheading"
+      "label": "Subheading",
+      "default": "Subheading"
     },
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading"
+      "label": "Heading",
+      "default": "Heading"
     },
     {
       "type": "textarea",
       "id": "paragraph",
-      "label": "Paragraph"
+      "label": "Paragraph",
+      "default": "Paragraph"
     },
     {
       "type": "url",
