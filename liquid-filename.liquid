@@ -1,6 +1,6 @@
 {%- comment -%}consider using <figure>/<figcaption> for images with associated text{%- endcomment -%}
-{{ 'SECTION-FILENAME.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'SECTION-FILENAME.js' | asset_url }}" defer="defer"></script>
+{{ 'SECTION-NAME.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'SECTION-NAME.js' | asset_url }}" defer="defer"></script>
 
 {% style %}
   #shopify-section-{{ section.id }} {
