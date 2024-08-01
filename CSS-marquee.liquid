@@ -1,0 +1,154 @@
+<!-- sections/store-locator-marquee [rc] -->
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .section-{{ section.id }}-background-color {
+    background-color: {{ section.settings.background_color }};
+  }
+
+  {% comment %} @media screen and (min-width: 769px) {
+    /* Pause on hover */
+    .marquee--hover-pause > * {
+      animation-play-state: running;
+    }
+    .marquee--hover-pause:hover > * {
+      animation-play-state: paused;
+      pointer-events: none;
+    }
+  } {% endcomment %}
+
+  /* Pause on click */
+  #toggle-marquee-on-off[type="checkbox"] + .marquee--wrapper > .marquee__content {
+    animation-play-state: running;
+  }
+
+  #toggle-marquee-on-off[type="checkbox"]:checked + .marquee--wrapper > .marquee__content {
+    animation-play-state: paused;
+  }
+</style>
+
+<div class="section-{{ section.id }}-padding section-{{ section.id }}-background-color tw-border tw-border-x-0 tw-border-solid tw-border-black">
+  <label for="toggle-marquee-on-off" />
+  <input id="toggle-marquee-on-off" type="checkbox" class="tw-sr-only">
+  <div class="marquee--wrapper marquee--hover-pause tw-relative tw-flex motion-reduce:tw-overflow-scroll motion-reduce:tw-whitespace-nowrap motion-safe:tw-overflow-hidden tw-select-none">
+    {% for num in (1..2) %}
+      <ul
+        class="marquee__content tw-shrink-0 tw-flex tw-justify-around tw-items-center tw-min-w-full motion-safe:tw-animate-marquee{% unless forloop.first %} motion-reduce:tw-hidden{% endunless %}"
+        {% unless forloop.first %}
+          aria-hidden="true"
+        {% endunless %}
+      >
+        {% for block in section.blocks %}
+          {%- if block.settings.image != blank -%}
+            <li class="tw-px-4 tw-flex-none">
+              {% if block.settings.url != blank %}
+                <a
+                  href="{{ block.settings.url }}"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  {% if block.settings.link_title != blank %}
+                    title="{{ block.settings.link_title }}"
+                  {% endif %}
+                >
+                  {{
+                    block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      widths: '359, 384',
+                      sizes: '(min-width: 768px) 384px, 359px',
+                      class: 'tw-w-64 tw-max-h-28 tw-object-contain'
+                  }}
+                </a>
+              {% else %}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    widths: '359, 384',
+                    sizes: '(min-width: 768px) 384px, 359px',
+                    class: 'tw-w-64 tw-max-h-28 tw-object-contain'
+                }}
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FCDDEC"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Link title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
