@@ -1,0 +1,159 @@
+<!-- sections/store-locator-partners [rc] -->
+
+<style>
+  .section-{{ section.id }}-background-color {
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .section-{{ section.id }}-emphasized-text:before {
+    background-image: url('{{ section.settings.sticker_1 | image_url: width: 200 }}');
+  }
+  .section-{{ section.id }}-emphasized-text:after {
+    background-image: url('{{ section.settings.sticker_2 | image_url: width: 200 }}');
+  }
+</style>
+
+<div
+  class="section-{{ section.id }}-background-color tw-py-10 md:tw-py-14{% unless request.design_mode %} animate animate__fadeIn{% endunless %}"
+  data-delay="100"
+>
+  <div class="tw-mx-8 tw-mb-8 md:tw-mb-14 tw-text-center">
+    {% if section.settings.sticker_1 != blank %}
+      {{ section.settings.sticker_1 | image_url: width: 200 | image_tag: class: 'md:tw-hidden tw-w-18 tw-h-auto' }}
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="tw-text-4xl md:tw-text-5xl tw-text-black tw-px-4 tw-mb-4 tw-font-semibold">
+        <span class="tw-block">{{ section.settings.heading | downcase -}}</span>
+        {%- if section.settings.emphasized_text != blank %}
+          <span class="section-{{ section.id }}-emphasized-text tw-relative tw-inline-block tw-text-5xl sm:tw-text-6xl md:tw-text-7xl before:tw-absolute before:tw-content-none md:before:tw-content-[''] before:tw-bg-contain before:-tw-left-24 before:tw-top-1/2 before:-tw-translate-y-1/2 before:tw-w-18 before:tw-h-18 after:tw-absolute after:tw-content-none md:after:tw-content-[''] after:tw-bg-contain after:-tw-right-20 after:tw-top-1/2 after:-tw-translate-y-1/2 after:tw-w-18 after:tw-h-18">
+            {{- section.settings.emphasized_text | upcase -}}
+          </span>
+        {%- endif %}
+      </h2>
+    {% endif %}
+    {% if section.settings.paragraph != blank %}
+      <div class="rte tw-font-semibold tw-text-xl">{{ section.settings.paragraph }}</div>
+    {% endif %}
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <ul
+      id="partners-slider"
+      class="tw-flex tw-overflow-scroll tw-whitespace-nowrap tw-no-scrollbar tw-gap-8 tw-items-center tw-bg-cream tw-border tw-border-x-0 tw-border-solid tw-border-black tw-p-8{% unless request.design_mode %} animate animate__fadeIn{% endunless %}"
+      data-delay="100"
+    >
+      {% for block in section.blocks %}
+        {%- if block.settings.image != blank -%}
+          <li class="child tw-px-4 tw-flex-none">
+            {% if block.settings.url != blank %}
+              <a
+                href="{{ block.settings.url }}"
+                target="_blank"
+                rel="noreferrer noopener"
+                {% if block.settings.link_title != blank %}
+                  title="{{ block.settings.link_title }}"
+                {% endif %}
+              >
+                {{
+                  block.settings.image
+                  | image_url: width: 400
+                  | image_tag:
+                    widths: '234',
+                    sizes: '234px',
+                    class: 'tw-w-64 tw-max-h-28 tw-object-contain tw-pointer-events-none',
+                    draggable: false
+                }}
+              </a>
+            {% else %}
+              {{
+                block.settings.image
+                | image_url: width: 400
+                | image_tag:
+                  widths: '234',
+                  sizes: '234px',
+                  class: 'tw-w-64 tw-max-h-28 tw-object-contain tw-pointer-events-none',
+                  draggable: false
+              }}
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Store locator partners",
+  "tag": "section",
+  "class": "tw-relative tw-overflow-hidden",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FDCD62"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop with our"
+    },
+    {
+      "type": "text",
+      "id": "emphasized_text",
+      "label": "Emphasized heading text",
+      "default": "online partners"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph",
+      "label": "Paragraph",
+      "default": "<p></p>"
+    },
+    {
+      "type": "header",
+      "content": "Stickers"
+    },
+    {
+      "type": "image_picker",
+      "id": "sticker_1",
+      "label": "Sticker 1",
+      "info": "Renders above main heading on mobile and left of columns on desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "sticker_2",
+      "label": "Sticker 2",
+      "info": "Displays right of heading on desktop"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Link title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
